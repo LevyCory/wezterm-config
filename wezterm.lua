@@ -7,7 +7,12 @@ local config = {
   color_scheme = 'Catppuccin Frappe',
   font_size = 20,
   harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+  font = wezterm.font_with_fallback({
+    'JetBrains Mono',
+    'Symbols Nerd Font',
+  }),
 
+  launch_menu = {},
   use_fancy_tab_bar = false,
   tab_bar_at_bottom = false,
   tab_max_width = 32,
@@ -19,17 +24,10 @@ local config = {
     bottom = 0,
   },
 
-  keys = {
-    { key = 'l', mods = 'ALT', action = wezterm.action.ShowLauncher }
-  },
+  leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
 
-  window_frame = {
-    font = wezterm.font_with_fallback({
-      { family = 'Roboto',                  weight = 'Bold' },
-      { family = 'JetBrainsMono Nerd Font', weight = 'Bold' },
-      'Symbols Nerd Font',
-    }),
-    font_size = 16.0,
+  keys = {
+    { key = 'l', mods = 'LEADER', action = wezterm.action.ShowLauncher },
   },
 }
 
@@ -40,10 +38,13 @@ wezterm.on('format-tab-title', events.format_tab_title)
 -- Plugins
 require('tabline').setup(config)
 
+-- Platform specific config
+platform.apply_config(config)
+
 -- Env specific config
-local has_env_config, env_config = pcall(require, 'env')
+local has_env_config, env = pcall(require, 'env')
 if has_env_config then
-  env_config.apply_to_config(config)
+  env.apply_to_config(config)
 end
 
 return config
