@@ -33,7 +33,10 @@ return {
         tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
         tabline_x = {},
         tabline_y = {},
-        tabline_z = { 'ram', 'cpu' },
+        tabline_z = {
+          { 'ram', use_pwsh = platform.os.windows },
+          { 'cpu', use_pwsh = platform.os.windows },
+        },
       },
       extensions = {},
     })
