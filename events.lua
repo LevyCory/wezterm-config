@@ -1,9 +1,7 @@
 return {
-  gui_startup = function()
-    return function(cmd)
-      local _, _, window = wezterm.mux.spawn_window(cmd or {})
-      window:gui_window():maximize()
-    end
+  gui_startup = function(cmd)
+    local _, _, window = wezterm.mux.spawn_window(cmd or {})
+    window:gui_window():maximize()
   end,
   format_tab_title = function(tab, _, _, _, hover, _)
     local process_name = tab.active_pane.foreground_process_name

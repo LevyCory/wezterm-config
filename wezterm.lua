@@ -16,23 +16,24 @@ local config = {
   use_fancy_tab_bar = false,
   tab_bar_at_bottom = false,
   tab_max_width = 32,
-  window_decorations = "RESIZE",
+  window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+  integrated_title_button_alignment = "Left",
+  integrated_title_buttons = {
+    "Close",
+  },
   window_padding = {
     left = 0,
     right = 0,
     top = 0,
     bottom = 0,
   },
-
-  leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
-
-  keys = {
-    { key = 'l', mods = 'LEADER', action = wezterm.action.ShowLauncher },
-  },
 }
 
+-- Keymaps
+require('keymaps').apply_to_config(config)
+
 -- Event Handlers
-wezterm.on("gui-startup", events.gui_startup())
+wezterm.on("gui-startup", events.gui_startup)
 wezterm.on('format-tab-title', events.format_tab_title)
 
 -- Plugins
